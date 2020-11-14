@@ -46,8 +46,22 @@ def game_state(board):
         print("Draw")
 
 
-board = input("Enter cells: ")
+board = list(input("Enter cells: "))
 print_board(board)
-game_state(board)
-
-
+while True:
+    coordinates = input("Enter the coordinates: ").split()
+    if coordinates[0].isdigit() and coordinates[1].isdigit():
+        coordinates = [int(x) for x in coordinates]
+        if coordinates[0] in range(1, 4) and coordinates[1] in range(1, 4):
+            address = coordinates[0] + 8 - 3 * coordinates[1]
+            if board[address] != "_":
+                print("This cell is occupied! Choose another one!")
+                continue
+            board[address] = "X"
+            print_board(board)
+            # game_state(board)
+            break
+        else:
+            print("Coordinates should be from 1 to 3!")
+    else:
+        print("You should enter numbers!")
